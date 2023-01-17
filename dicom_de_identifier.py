@@ -6,13 +6,13 @@ def get_file_list(dir) :
         list_full = []
         for (path, _, file) in os.walk(dir):
             for each_file in file:
-                if each_file[-4:] == '.dcm':
+                if each_file[-3:] == 'dcm' or each_file[-5:] == "dicom":
                     list_full.append(os.path.join(os.getcwd(),path,each_file))
         return list_full
     except : 
         return 'get_file_list error.'    
  
-def identifier(filename):
+def de_identifier(filename):
     try:
         Metadata = pydicom.filereader.dcmread(str(filename))
     except: return 'de_identifier // file reading error. '
@@ -47,4 +47,4 @@ if __name__ == "__main__":
     dcm_list = get_file_list(dir_path)
     
     for filename in dcm_list:
-        identifier(filename)
+        de_identifier(filename)
